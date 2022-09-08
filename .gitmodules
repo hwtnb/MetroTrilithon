@@ -1,4 +1,4 @@
 [submodule "source/MetroRadiance"]
 	path = source/MetroRadiance
 	url = https://github.com/hwtnb/MetroRadiance
-	branch = develop
+	branch = for-sylphyhorn
