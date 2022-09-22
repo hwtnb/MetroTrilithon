@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="StatefulModel.Standard" Version="0.1.0" />
+    <PackageReference Include="LivetCask.EventListeners" Version="4.0.2" />
   </ItemGroup>
 
 </Project>

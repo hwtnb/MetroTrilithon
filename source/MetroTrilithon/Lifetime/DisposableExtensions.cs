@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using StatefulModel;
+using Livet;
 
 namespace MetroTrilithon.Lifetime
 {
@@ -25,7 +25,7 @@ namespace MetroTrilithon.Lifetime
 			return disposable;
 		}
 
-		public static T AddTo<T>(this T disposable, MultipleDisposable obj) where T : IDisposable
+		public static T AddTo<T>(this T disposable, LivetCompositeDisposable obj) where T : IDisposable
 		{
 			if (obj == null)
 			{

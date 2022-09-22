@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using StatefulModel.EventListeners;
+using Livet.EventListeners;
 
 namespace MetroTrilithon.Mvvm
 {
