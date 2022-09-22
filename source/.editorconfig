@@ -7,7 +7,7 @@ charset = utf-8
 end_of_line = crlf
 insert_final_newline = true
 
-[*.nuspec]
+[*.{csproj,nuspec}]
 indent_style = space
 indent_size = 2
 charset = utf-8
