@@ -1,15 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net472;net48</TargetFrameworks>
+    <TargetFrameworks>net472;net48;net6.0-windows</TargetFrameworks>
     <OutputType>Library</OutputType>
     <RootNamespace>MetroTrilithon</RootNamespace>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Title>MetroTrilithon.Desktop</Title>
+    <Description>Utilities for Windows Desktop apps</Description>
+    <Product>MetroTrilithon</Product>
+    <Company>grabacr.net</Company>
+    <Copyright>Copyright © 2015 Manato KAMEYA</Copyright>
+    <Version>0.3.1</Version>
+    <InformationalVersion>0.3.1</InformationalVersion>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <DocumentationFile>bin\Release\MetroTrilithon.Desktop.xml</DocumentationFile>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
@@ -17,14 +23,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release RETRO|AnyCPU'">
     <OutputPath>bin\Release RETRO\</OutputPath>
     <DefineConstants>TRACE;RETRO</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
     <Optimize>true</Optimize>
     <NoWarn>1591</NoWarn>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net472' Or '$(TargetFramework)' == 'net48'">
     <Reference Include="System.Runtime.Remoting" />
   </ItemGroup>
 

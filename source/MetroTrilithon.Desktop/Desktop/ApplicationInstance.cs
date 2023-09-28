@@ -1,20 +1,24 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
+
+#if NETFRAMEWORK
+using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Ipc;
 using System.Runtime.Remoting.Lifetime;
 using System.Runtime.Serialization.Formatters;
-using System.Threading;
-using System.Threading.Tasks;
+#endif
 
 namespace MetroTrilithon.Desktop
 {
+#if NETFRAMEWORK
 	/// <summary>
 	/// アプリケーションの多重起動の検知と、起動しているインスタンス間でのメッセージの送受信をサポートします。
 	/// </summary>
@@ -153,4 +157,42 @@ namespace MetroTrilithon.Desktop
 			this.CommandLineArgs = commandLineArgs;
 		}
 	}
+#else
+	/// <summary>
+	/// アプリケーションの多重起動の検知
+	/// </summary>
+	public sealed class ApplicationInstance : IDisposable
+	{
+		private readonly Mutex _mutex;
+
+		/// <summary>
+		/// このインスタンスが、初回起動のインスタンスかどうかを示す値を取得します。
+		/// </summary>
+		public bool IsFirst { get; } = false;
+
+		public ApplicationInstance() : this(Assembly.GetEntryAssembly()) { }
+
+		public ApplicationInstance(Assembly targetAssembly)
+		{
+			// アプリケーションの GUID を取得
+			var portName = ((GuidAttribute)Attribute.GetCustomAttribute(targetAssembly, typeof(GuidAttribute))).Value;
+
+			// Mutex で多重起動の検知
+			this._mutex = new Mutex(true, typeof(ApplicationInstance).FullName + "_" + portName);
+			if (this._mutex.WaitOne(0, false))
+			{
+				this.IsFirst = true;
+			}
+			else
+			{
+				this.Dispose();
+			}
+		}
+
+		public void Dispose()
+		{
+			this._mutex?.Dispose();
+		}
+	}
+#endif
 }
